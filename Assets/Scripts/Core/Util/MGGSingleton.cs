@@ -7,7 +7,7 @@ public class MGGSingleton<T> : MonoBehaviour where T : Component
 {
     private static T _instance;
 
-    public T Instance
+    public static T Instance
     {
         get
         {
@@ -26,6 +26,8 @@ public class MGGSingleton<T> : MonoBehaviour where T : Component
 
     public virtual void Awake()
     {
+        
+        Debug.Log("This is Awake");
         if (_instance == null)
         {
             _instance = this as T;
