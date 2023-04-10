@@ -62,6 +62,8 @@ public class PlayerController : MonoBehaviour
         Vector3 currentPos = gameObject.transform.position;
         currentPos = Vector2.MoveTowards(currentPos, DestPos, PlayerMoveSpeed * Time.deltaTime);
         gameObject.transform.position = currentPos;
+        
+        
         return (Vector3.Distance(currentPos, DestPos) >= 0.001f);
     }
     

@@ -23,7 +23,7 @@ public class PlayerIdleState : BaseState<PlayerController>
         {
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
             //worldPosition.z = Camera.main.transform.position.z + Camera.main.nearClipPlane;
-            worldPosition.y = 0;
+            worldPosition.y = controller.gameObject.transform.position.y;
             worldPosition.z = 0;
             controller.DestPos = worldPosition;
             controller.TransitionToState(controller.PlayerMoveState);

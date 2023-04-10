@@ -22,11 +22,11 @@ public class PlayerMoveState : BaseState<PlayerController>
         
         Vector3 mousePos = Input.mousePosition;
         
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
             
-            worldPosition.y = 0;
+            worldPosition.y = controller.gameObject.transform.position.y;
             worldPosition.z = 0;
             controller.DestPos = worldPosition;
             
