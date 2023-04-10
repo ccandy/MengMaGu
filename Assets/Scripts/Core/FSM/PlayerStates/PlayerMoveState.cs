@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerIdleState : BaseState<PlayerController>
+public class PlayerMoveState : BaseState<PlayerController>
 {
     // Start is called before the first frame update
+
     public override void EnterState(PlayerController controller)
     {
-        controller.PlayerAnimator.SetBool("PlayerWalk", false);
+        Debug.Log("In player move state");
+        controller.PlayerAnimator.SetBool("PlayerWalk", true);
     }
 
     public override void ExitState(PlayerController controller)
@@ -17,16 +19,17 @@ public class PlayerIdleState : BaseState<PlayerController>
 
     public override void OnUpdate(PlayerController controller)
     {
+        
         Vector3 mousePos = Input.mousePosition;
         
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
-            //worldPosition.z = Camera.main.transform.position.z + Camera.main.nearClipPlane;
+            
             worldPosition.y = 0;
             worldPosition.z = 0;
             controller.DestPos = worldPosition;
-            controller.TransitionToState(controller.PlayerMoveState);
+            
         }
         
         if (Input.GetMouseButtonDown(1))
@@ -37,6 +40,12 @@ public class PlayerIdleState : BaseState<PlayerController>
         if (Input.GetMouseButtonDown(2))
         {
             Debug.Log("Pressed middle click.");
+        }
+        
+        bool playerMove = controller.PlayerMove();
+        if (!playerMove)
+        {
+            controller.TransitionToState(controller.PlayerIdleState);
         }
     }
 }
