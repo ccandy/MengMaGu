@@ -8,7 +8,6 @@ public class PlayerMoveState : BaseState<PlayerController>
 
     public override void EnterState(PlayerController controller)
     {
-        Debug.Log("In player move state");
         controller.PlayerAnimator.SetBool("PlayerWalk", true);
     }
 
