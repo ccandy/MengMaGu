@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class UIManager : MGGSingleton<UIManager>
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public List<GameObject> UIList;
+    private GameObject _currentUI;
+    public void LoadUI(int index)
     {
-        
+        if (index > UIList.Count)
+        {
+            Debug.LogError("Fail to load UI");
+            return;
+        }
+
+        if (_currentUI != null)
+        {
+            Destroy(_currentUI);
+        }
+        _currentUI = Instantiate(UIList[index]);
     }
 }

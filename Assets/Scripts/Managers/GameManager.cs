@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MGGSingleton<GameManager>
 {
     private GameStartState _gameStartState = new GameStartState();
+    private InGameState _inGameState = new InGameState();
     private BaseState<GameManager> _currentState;
 
     private PlayerController _playerController;
@@ -25,8 +26,7 @@ public class GameManager : MGGSingleton<GameManager>
     
     void Start()
     {
-        _currentState = _gameStartState;
-        _currentState.EnterState(this);
+        TransitionToState(_inGameState);
 
         _playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         _cameraController = GameObject.FindWithTag("MainCamera").GetComponent<CameraController>();
