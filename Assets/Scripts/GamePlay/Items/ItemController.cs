@@ -58,8 +58,6 @@ public abstract class ItemController : MonoBehaviour
         }
     }
     
-    
-
     public abstract void Effect();
 
     public void UseItem()
