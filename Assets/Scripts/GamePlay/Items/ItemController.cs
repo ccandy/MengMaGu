@@ -61,4 +61,15 @@ public abstract class ItemController : MonoBehaviour
     
 
     public abstract void Effect();
+
+    public void UseItem()
+    {
+        _useage--;
+        if (_useage <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    
+    
 }
