@@ -5,9 +5,11 @@ using UnityEngine;
 public class PlayerMoveState : BaseState<PlayerController>
 {
     // Start is called before the first frame update
-
+    private InputController _inputController;
+    private bool _playerMove;
     public override void EnterState(PlayerController controller)
     {
+        _inputController = controller.PlayerInputController;
         controller.PlayerAnimator.SetBool("PlayerWalk", true);
     }
 
@@ -18,31 +20,10 @@ public class PlayerMoveState : BaseState<PlayerController>
 
     public override void OnUpdate(PlayerController controller)
     {
+        _inputController.OnUpdate();
+        _playerMove = _inputController.PlayerReachDest();
         
-        Vector3 mousePos = Input.mousePosition;
-        
-        if (Input.GetMouseButton(0))
-        {
-            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
-            
-            worldPosition.y = controller.gameObject.transform.position.y;
-            worldPosition.z = 0;
-            controller.DestPos = worldPosition;
-            
-        }
-        
-        if (Input.GetMouseButtonDown(1))
-        {
-            Debug.Log("Pressed secondary button.");
-        }
-        
-        if (Input.GetMouseButtonDown(2))
-        {
-            Debug.Log("Pressed middle click.");
-        }
-        
-        bool playerMove = controller.PlayerMove();
-        if (!playerMove)
+        if (!_playerMove)
         {
             controller.TransitionToState(controller.PlayerIdleState);
         }

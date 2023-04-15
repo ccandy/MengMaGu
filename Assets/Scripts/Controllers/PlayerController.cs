@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,11 @@ public class PlayerController : MonoBehaviour
     public float PlayerMoveSpeed = 1.0f;
     private Vector3 _destPos = Vector3.zero;
     private Vector3 _currentDir = Vector3.right;
-    
+
+    private InvController _invController;
+
+    public InputController PlayerInputController; 
+
     public Vector3 DestPos
     {
         set
@@ -40,6 +45,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        PlayerInputController = gameObject.GetComponent<InputController>();
+        PlayerInputController.Init(this);
+        _destPos = gameObject.transform.position;
+    }
+
     void Start()
     {
         _playerAnimator = gameObject.GetComponent<Animator>();
@@ -60,11 +72,14 @@ public class PlayerController : MonoBehaviour
     public bool PlayerMove()
     {   
         Vector3 currentPos = gameObject.transform.position;
-        currentPos = Vector2.MoveTowards(currentPos, DestPos, PlayerMoveSpeed * Time.deltaTime);
-        gameObject.transform.position = currentPos;
-        
-        
-        return (Vector3.Distance(currentPos, DestPos) >= 0.001f);
+        bool playerShouldMove = (Vector3.Distance(currentPos, DestPos) >= 0.001f);
+        if (playerShouldMove)
+        {
+            currentPos = Vector2.MoveTowards(currentPos, DestPos, PlayerMoveSpeed * Time.deltaTime);
+            gameObject.transform.position = currentPos;
+        }
+
+        return playerShouldMove;
     }
     
     public void TransitionToState(BaseState<PlayerController> state)
@@ -77,8 +92,6 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 newDir =  _destPos - gameObject.transform.position;
         float dir = Vector3.Dot(_currentDir, newDir);
-        
-        Debug.Log("Dir is " + dir);
         
         if (dir < 0.0f)
         {

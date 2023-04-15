@@ -9,7 +9,7 @@ public class Interactive : MonoBehaviour
 {
     protected bool _enterTriggerEnter = false;
     
-    protected virtual void OnClickedAction()
+    public virtual void OnClickedAction()
     {
         Debug.Log("OnClickAction");
     }
