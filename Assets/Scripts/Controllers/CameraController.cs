@@ -13,7 +13,6 @@ public class CameraController : MonoBehaviour
     private PlayerController _playerController;
     public Vector3 CameraOffset = new Vector3(-0.08f, 3.06f, -9.901f);
     
-
     public PlayerController Player
     {
         set
@@ -25,12 +24,6 @@ public class CameraController : MonoBehaviour
             return _playerController;
         }
     }
-    /*
-    public bool FollowPlayer
-    {
-        set { _followPlayer = value;}
-        get { return _followPlayer; }
-    }*/
     
     private void Awake()
     {

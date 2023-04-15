@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer.Internal.Converters;
 using UnityEngine;
 
-public class PickUpItem : MonoBehaviour
+public class PickUpItem : Interactive
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int ItemID;
 
-    // Update is called once per frame
-    void Update()
+    public override void OnClickedAction()
+    {
+        if (_enterTriggerEnter)
+        {
+            Debug.Log("Pick up item");
+            Destroy(gameObject);
+        }
+    }
+    public override void EmptyClicked()
     {
         
     }

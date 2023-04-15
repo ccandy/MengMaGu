@@ -26,13 +26,14 @@ public class GameManager : MGGSingleton<GameManager>
     
     void Start()
     {
-        TransitionToState(_inGameState);
-
         _playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         _cameraController = GameObject.FindWithTag("MainCamera").GetComponent<CameraController>();
         _cameraController.Player = _playerController;
         _cameraController.FollowPlayer = true;
+        
+        TransitionToState(_inGameState);
 
+        
     }
 
     // Update is called once per frame

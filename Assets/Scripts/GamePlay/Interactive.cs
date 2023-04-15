@@ -8,7 +8,13 @@ using UnityEngine;
 public class Interactive : MonoBehaviour
 {
     protected bool _enterTriggerEnter = false;
-    
+    protected PlayerController _playerController;
+
+    private void Awake()
+    {
+        _playerController = GameManager.Instance.Player;
+    }
+
     public virtual void OnClickedAction()
     {
         Debug.Log("OnClickAction");
@@ -20,11 +26,18 @@ public class Interactive : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        _enterTriggerEnter = true;
+        if (other.gameObject.tag.Equals("Player"))
+        {
+            Debug.Log("Enter player");
+            _enterTriggerEnter = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        _enterTriggerEnter = false;
+        if (other.gameObject.tag.Equals("Player"))
+        {
+            _enterTriggerEnter = false;
+        }     
     }
 }

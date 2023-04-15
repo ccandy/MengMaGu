@@ -30,8 +30,11 @@ public class InputController : MonoBehaviour
             {
                 if (hit.collider.gameObject.tag.Equals("Interactive"))
                 {
-                    Interactive interactive = gameObject.GetComponent<Interactive>();
-                    interactive.OnClickedAction();
+                    PickUpItem interactive = hit.collider.gameObject.GetComponent<PickUpItem>();
+                    if (interactive != null)
+                    {
+                        interactive.OnClickedAction();
+                    }
                 }
             }
             else
